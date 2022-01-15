@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/flowers?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: bestuser
+    password: bestuser
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+      enabled: true
+      file-size-threshold: 6MB
+
+jwt:
+  token:
+    secret: jwtuser
+    expired: 3600000
+
+server:
+  port: 8076
+
+#Amazon S3
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAYOZQ6BVH73C2TCA6
+      secret-key: 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
+    region:
+      static: ap-southeast-1
+    stack:
+      auto: false
+application:
+  bucket:
+    name: iflowerv1
+
