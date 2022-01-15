@@ -1,6 +1,6 @@
-package i.flowers.repository;
+package i.flowers.database.repository;
 
-import i.flowers.model.User;
+import i.flowers.database.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,Long> {

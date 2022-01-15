@@ -1,6 +1,6 @@
-package i.flowers.repository;
+package i.flowers.database.repository;
 
-import i.flowers.model.Role;
+import i.flowers.database.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role,Long> {

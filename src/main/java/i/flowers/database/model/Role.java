@@ -1,4 +1,4 @@
-package i.flowers.model;
+package i.flowers.database.model;
 
 import lombok.Data;
 

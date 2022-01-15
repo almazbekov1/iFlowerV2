@@ -1,4 +1,4 @@
-package i.flowers.model;
+package i.flowers.database.model;
 
 
 import lombok.Data;
@@ -21,7 +21,7 @@ public class User  {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "password")

@@ -1,10 +1,11 @@
-package i.flowers.service.impl;
+package i.flowers.database.service.impl;
 
-import i.flowers.model.Role;
-import i.flowers.model.User;
-import i.flowers.repository.RoleRepository;
-import i.flowers.repository.UserRepository;
+import i.flowers.database.model.Role;
+import i.flowers.database.model.User;
+import i.flowers.database.repository.RoleRepository;
+import i.flowers.database.repository.UserRepository;
 import i.flowers.service.UserService;
+import i.flowers.exception.UserServiceException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,10 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
-//        user.setStatus(Status.ACTIVE);
+        if (findByEmail(user.getEmail())!=null){
+            throw new UserServiceException("User already exist");
+        }
+
 
         User registeredUser = userRepository.save(user);
 
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
         return registeredUser;
     }
+
 
     @Override
     public List<User> getAll() {

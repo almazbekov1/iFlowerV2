@@ -1,6 +1,6 @@
 package i.flowers.config.jwt;
 
-import i.flowers.model.Role;
+import i.flowers.database.model.Role;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

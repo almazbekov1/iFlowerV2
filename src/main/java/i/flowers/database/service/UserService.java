@@ -2,7 +2,7 @@ package i.flowers.service;
 
 
 
-import i.flowers.model.User;
+import i.flowers.database.model.User;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package i.flowers.config;
 
-import i.flowers.model.User;
+import i.flowers.database.model.User;
 import i.flowers.config.jwt.JwtUser;
 import i.flowers.config.jwt.JwtUserFactory;
 import i.flowers.service.UserService;
@@ -29,7 +29,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User with username: " + username + " not found");
         }
-        System.out.println("user service details");
         JwtUser jwtUser = JwtUserFactory.create(user);
         log.info("IN loadUserByUsername - user with username: {} successfully loaded ", username);
         return jwtUser;
