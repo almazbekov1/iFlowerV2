@@ -1,5 +1,7 @@
 package i.flowers.database.service.impl;
 
+import i.flowers.database.dto.UserRequest;
+import i.flowers.database.dto.UserResponse;
 import i.flowers.database.model.Role;
 import i.flowers.database.model.User;
 import i.flowers.database.repository.RoleRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -33,7 +36,10 @@ public class UserServiceImpl implements UserService {
 //    @Autowired
 //    private JwtTokenProvider jwtTokenProvider;
     @Override
-    public User register(User user) {
+    public User register(UserRequest userRequest) {
+
+        User user = userRequest.toUser();
+
         Role roleUser = roleRepository.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
@@ -54,8 +60,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> getAll() {
-        List<User> result = userRepository.findAll();
+    public List<UserResponse> getAll() {
+        List<UserResponse> result = new UserResponse().fromUsers(userRepository.findAll());
         log.info("IN getAll - {} users found", result.size());
         return result;
     }
@@ -81,8 +87,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
+    public UserResponse delete(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new UserServiceException("no user found by id: "+ id);
+        }
+        UserResponse userResponse = UserResponse.fromUser(user.get());
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted");
+        return userResponse;
+
     }
 }
