@@ -5,6 +5,11 @@ spring:
     username: bestuser
     password: bestuser
 
+#    url: jdbc:mysql://aa133mgwrmcnp37.ckmh1nerhtqr.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: username
+#    password: password
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,7 +20,7 @@ spring:
       enabled: true
       file-size-threshold: 6MB
   profiles:
-#    active: @spring.profiles.active@
+    active: @spring.profiles.active@
 
 jwt:
   token:

@@ -24,8 +24,6 @@ public class FlowerController {
 
     @GetMapping()
     public ResponseEntity<List<FlowerResponse>> getFlowers(@RequestParam int page,int size){
-        System.out.println(page);
-        System.out.println(size);
         return new ResponseEntity<>(flowerService.getAll(page,size), HttpStatus.OK);
     }
 
