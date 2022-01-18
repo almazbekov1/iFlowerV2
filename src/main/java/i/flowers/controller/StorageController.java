@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping("/api/admin/files")
+@RolesAllowed("admin")
 @CrossOrigin
 public class StorageController {
 

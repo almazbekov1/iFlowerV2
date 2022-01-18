@@ -2,6 +2,7 @@ package i.flowers.controller;
 
 
 import i.flowers.database.dto.UserRequest;
+import i.flowers.database.dto.UserResponse;
 import i.flowers.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> registerUser(@RequestBody UserRequest user){
-        User result =  userService.register(user);
+    public ResponseEntity<UserResponse> registerUser(@RequestBody UserRequest user){
+        UserResponse result =  userService.register(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

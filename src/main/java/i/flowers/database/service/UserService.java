@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User register(UserRequest user);
+    UserResponse register(UserRequest user);
 
     List<UserResponse> getAll();
 

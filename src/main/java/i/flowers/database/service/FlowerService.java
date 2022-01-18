@@ -1,18 +1,22 @@
 package i.flowers.database.service;
 
+import i.flowers.database.dto.FlowerRequest;
+import i.flowers.database.dto.FlowerResponse;
 import i.flowers.database.model.FlowerEntity;
 
 import java.util.List;
 
 public interface FlowerService {
 
-    FlowerEntity addNewFlower(FlowerEntity flower);
+    FlowerResponse addNewFlower(FlowerRequest flower);
 
-    List<FlowerEntity> getAll();
+    FlowerResponse updateFlower(FlowerRequest flower,Long id);
 
-    FlowerEntity findByName(String name);
+    List<FlowerResponse> getAll();
 
-    FlowerEntity findById(Long id);
+    FlowerResponse findByName(String name);
 
-    void delete(Long id);
+    FlowerResponse findById(Long id);
+
+    String delete(Long id);
 }
