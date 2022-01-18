@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 //    @Autowired
 //    private JwtTokenProvider jwtTokenProvider;
     @Override
-    public UserResponse register(UserRequest userRequest) {
+    public User register(UserRequest userRequest) {
 
         User user = userRequest.toUser();
 
@@ -55,7 +55,8 @@ public class UserServiceImpl implements UserService {
 
         log.info("IN register - user: {} successfully registered", registeredUser);
 
-        return UserResponse.fromUser(registeredUser);
+//        return UserResponse.fromUser(registeredUser);
+        return registeredUser;
     }
 
 

@@ -2,14 +2,10 @@ package i.flowers.controller;
 
 
 import i.flowers.database.dto.UserRequest;
-import i.flowers.database.dto.UserResponse;
+import i.flowers.dto.AuthenticationRequestDto;
 import i.flowers.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import i.flowers.database.model.User;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,15 +13,21 @@ import i.flowers.database.model.User;
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationRestController authenticationRestController;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationRestController authenticationRestController) {
         this.userService = userService;
+        this.authenticationRestController = authenticationRestController;
     }
 
+
     @PostMapping
-    public ResponseEntity<UserResponse> registerUser(@RequestBody UserRequest user){
-        UserResponse result =  userService.register(user);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity registerUser(@RequestBody UserRequest userRequest) {
+        AuthenticationRequestDto requestDto = new AuthenticationRequestDto(
+                userRequest.getEmail(),userRequest.getPassword());
+        userService.register(userRequest);
+        return authenticationRestController.login(requestDto);
+
     }
 
 

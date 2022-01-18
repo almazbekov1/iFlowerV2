@@ -12,7 +12,7 @@ public interface FlowerService {
 
     FlowerResponse updateFlower(FlowerRequest flower,Long id);
 
-    List<FlowerResponse> getAll();
+    List<FlowerResponse> getAll(int page,int size);
 
     FlowerResponse findByName(String name);
 

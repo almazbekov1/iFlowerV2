@@ -9,6 +9,9 @@ import i.flowers.database.service.FlowerService;
 import i.flowers.exception.FLowerServiceException;
 import i.flowers.exception.UserServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,8 +47,9 @@ public class FlowerServiceImpl implements FlowerService {
     }
 
     @Override
-    public List<FlowerResponse> getAll() {
-        List<FlowerResponse> flowerDtoList = new FlowerResponse().fromFlower(flowerRepository.findAll());
+    public List<FlowerResponse> getAll(int page,int size) {
+        Pageable pageable = PageRequest.of(page-1,size);
+        List<FlowerResponse> flowerDtoList = new FlowerResponse().fromFlower(flowerRepository.findAll(pageable).getContent());
         return flowerDtoList;
     }
 
