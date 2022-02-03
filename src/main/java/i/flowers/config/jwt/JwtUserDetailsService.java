@@ -1,4 +1,4 @@
-package i.flowers.config;
+package i.flowers.config.jwt;
 
 import i.flowers.database.model.User;
 import i.flowers.config.jwt.JwtUser;

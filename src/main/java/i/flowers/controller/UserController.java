@@ -1,17 +1,27 @@
-package i.flowers.controller;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
+package i.flowers.controller;
 
 import i.flowers.database.dto.UserRequest;
 import i.flowers.dto.AuthenticationRequestDto;
 import i.flowers.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/users")
-@CrossOrigin
+@RequestMapping({"/api/users"})
+@CrossOrigin(
+        origins = {"*"},
+        maxAge = 3600L
+)
 public class UserController {
-
     private final UserService userService;
     private final AuthenticationRestController authenticationRestController;
 
@@ -20,15 +30,10 @@ public class UserController {
         this.authenticationRestController = authenticationRestController;
     }
 
-
     @PostMapping
     public ResponseEntity registerUser(@RequestBody UserRequest userRequest) {
-        AuthenticationRequestDto requestDto = new AuthenticationRequestDto(
-                userRequest.getEmail(),userRequest.getPassword());
-        userService.register(userRequest);
-        return authenticationRestController.login(requestDto);
-
+        AuthenticationRequestDto requestDto = new AuthenticationRequestDto(userRequest.getEmail(), userRequest.getPassword());
+        this.userService.register(userRequest);
+        return this.authenticationRestController.login(requestDto);
     }
-
-
 }

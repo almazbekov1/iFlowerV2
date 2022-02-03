@@ -5,9 +5,8 @@
 
 package i.flowers.database.repository;
 
-import i.flowers.database.model.User;
+import i.flowers.database.model.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String name);
+public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 }
