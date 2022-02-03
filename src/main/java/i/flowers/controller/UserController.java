@@ -6,7 +6,7 @@
 package i.flowers.controller;
 
 import i.flowers.database.dto.UserRequest;
-import i.flowers.dto.AuthenticationRequestDto;
+import i.flowers.database.dto.AuthenticationRequestDto;
 import i.flowers.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

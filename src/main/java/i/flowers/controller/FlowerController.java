@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package i.flowers.controller;
 
 import i.flowers.database.dto.FlowerRequest;
@@ -42,11 +37,16 @@ public class FlowerController {
         return new ResponseEntity(this.flowerService.getAll(page, size, category, available), HttpStatus.OK);
     }
 
+    @GetMapping({"/admin/flowers"})
+    public ResponseEntity<List<FlowerResponse>> getFlowersForAdmin(@RequestParam int page, int size, @RequestParam(required = false) Category category, @RequestParam(required = false) Boolean available) {
+        return new ResponseEntity(this.flowerService.getAllForAdmin(page, size, category, available), HttpStatus.OK);
+    }
     @GetMapping({"/public/flowers{id}"})
     public ResponseEntity<FlowerResponse> getById(@PathVariable("id") Long id) {
         FlowerResponse flower = this.flowerService.findById(id);
         return new ResponseEntity(flower, HttpStatus.OK);
     }
+
 
     @PostMapping({"/admin/flowers"})
     @CrossOrigin
@@ -62,14 +62,16 @@ public class FlowerController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    @DeleteMapping({"/admin/flowers/{id}"})
+    @PutMapping({"/admin/flowers/block/{id}"})
     @CrossOrigin
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        return new ResponseEntity(this.flowerService.delete(id), HttpStatus.OK);
+    public ResponseEntity<Boolean> block(@PathVariable Long id) {
+        return new ResponseEntity(this.flowerService.block(id), HttpStatus.OK);
     }
 
     @GetMapping({"/public/flowers/category"})
     public ResponseEntity<List<Category>> category() {
         return new ResponseEntity(List.of(Category.Bouquets, Category.InTheBox, Category.InTheBasket), HttpStatus.OK);
     }
+
+
 }

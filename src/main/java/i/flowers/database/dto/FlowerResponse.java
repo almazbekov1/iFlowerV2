@@ -11,9 +11,14 @@ import i.flowers.database.model.ImageEntity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
+@Getter
+@Setter
 public class FlowerResponse {
     private Long id;
     private String name;
@@ -21,11 +26,13 @@ public class FlowerResponse {
     private double price;
     private double rating;
     private boolean available;
+    private boolean block;
     private List<String> image;
     private Category category;
 
     public static FlowerResponse fromFLower(FlowerEntity flower) {
-        return new FlowerResponse(flower.getId(), flower.getName(), flower.getDescription(), flower.getPrice(), flower.getRating(), getImages(flower.getImages()), flower.isAvailable(), flower.getCategory());
+        return new FlowerResponse(flower.getId(), flower.getName(), flower.getDescription(), flower.getPrice()
+                , flower.getRating(), getImages(flower.getImages()), flower.isAvailable(), flower.getCategory(),flower.isBlock());
     }
 
     public List<FlowerResponse> fromFlower(List<FlowerEntity> flowerEntities) {
@@ -52,7 +59,8 @@ public class FlowerResponse {
         return strings;
     }
 
-    public FlowerResponse(Long id, String name, String description, double price, double rating, List<String> image, boolean available, Category category) {
+    public FlowerResponse(Long id, String name, String description, double price
+            , double rating, List<String> image, boolean available, Category category,Boolean isBlock) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,72 +69,9 @@ public class FlowerResponse {
         this.image = image;
         this.available = available;
         this.category = category;
+        this.block = isBlock;
     }
 
     public FlowerResponse() {
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public double getRating() {
-        return this.rating;
-    }
-
-    public boolean isAvailable() {
-        return this.available;
-    }
-
-    public List<String> getImage() {
-        return this.image;
-    }
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    public void setPrice(final double price) {
-        this.price = price;
-    }
-
-    public void setRating(final double rating) {
-        this.rating = rating;
-    }
-
-    public void setAvailable(final boolean available) {
-        this.available = available;
-    }
-
-    public void setImage(final List<String> image) {
-        this.image = image;
-    }
-
-    public void setCategory(final Category category) {
-        this.category = category;
     }
 }

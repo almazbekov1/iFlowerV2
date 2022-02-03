@@ -17,9 +17,13 @@ public interface FlowerService {
 
     List<FlowerResponse> getAll(int page, int size, Category category, Boolean available);
 
+    List<FlowerResponse> getAllForAdmin(int page, int size, Category category, Boolean available);
+
     FlowerResponse findByName(String name);
 
     FlowerResponse findById(Long id);
 
     String delete(Long id);
+
+    Boolean block(Long gid);
 }

@@ -8,7 +8,7 @@ package i.flowers.controller;
 import i.flowers.config.jwt.JwtTokenProvider;
 import i.flowers.database.model.Role;
 import i.flowers.database.model.User;
-import i.flowers.dto.AuthenticationRequestDto;
+import i.flowers.database.dto.AuthenticationRequestDto;
 import i.flowers.service.UserService;
 import java.util.HashMap;
 import java.util.Map;

@@ -12,8 +12,10 @@ import i.flowers.database.model.FlowerEntity;
 import i.flowers.database.repository.FlowerRepository;
 import i.flowers.database.service.FlowerService;
 import i.flowers.exception.FLowerServiceException;
+
 import java.util.List;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -48,7 +50,14 @@ public class FlowerServiceImpl implements FlowerService {
 
     public List<FlowerResponse> getAll(int page, int size, Category category, Boolean available) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        List<FlowerResponse> flowerDtoList = (new FlowerResponse()).fromFlower((List)this.flowerRepository.findAll(category, pageable, available).get());
+        List<FlowerResponse> flowerDtoList = (new FlowerResponse()).fromFlower((List) this.flowerRepository.findAll(category, pageable, available).get());
+        return flowerDtoList;
+    }
+
+    @Override
+    public List<FlowerResponse> getAllForAdmin(int page, int size, Category category, Boolean available) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<FlowerResponse> flowerDtoList = (new FlowerResponse()).fromFlower((List) this.flowerRepository.findAllForAdmin(category, pageable, available).get());
         return flowerDtoList;
     }
 
@@ -57,7 +66,7 @@ public class FlowerServiceImpl implements FlowerService {
         if (flower == null) {
             throw new FLowerServiceException("no flower found by name: " + name);
         } else {
-            FlowerResponse response = FlowerResponse.fromFLower((FlowerEntity)flower.get());
+            FlowerResponse response = FlowerResponse.fromFLower((FlowerEntity) flower.get());
             return response;
         }
     }
@@ -67,7 +76,7 @@ public class FlowerServiceImpl implements FlowerService {
         if (flower == null) {
             throw new FLowerServiceException("no flower found by id: " + id);
         } else {
-            FlowerResponse result = FlowerResponse.fromFLower((FlowerEntity)flower.get());
+            FlowerResponse result = FlowerResponse.fromFLower((FlowerEntity) flower.get());
             return result;
         }
     }
@@ -79,5 +88,21 @@ public class FlowerServiceImpl implements FlowerService {
             this.flowerRepository.deleteById(id);
             return "remove flower by id: " + id;
         }
+    }
+
+    public Boolean block(Long id) {
+        if (this.flowerRepository.findById(id) == null) {
+            throw new FLowerServiceException("no flower found by id: " + id);
+        }
+        Boolean isBlock;
+        FlowerEntity flowerEntity = flowerRepository.findById(id).get();
+        if (flowerEntity.isBlock()) {
+            isBlock = false;
+        } else {
+            isBlock = true;
+        }
+        flowerEntity.setBlock(isBlock);
+        flowerRepository.save(flowerEntity);
+        return isBlock;
     }
 }

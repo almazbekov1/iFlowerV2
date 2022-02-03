@@ -58,6 +58,7 @@ public class OrderRequestMapper {
             OrderFlowerObject o = (OrderFlowerObject)var3.next();
             OrderFlowerEntity orderFlowerEntity = new OrderFlowerEntity();
             orderFlowerEntity.setAmount(o.getAmount());
+            orderFlowerEntity.setPrice(flowerRepository.findById(o.getFlowerId()).get().getPrice() * o.getAmount());
             orderFlowerEntity.setFlower((FlowerEntity)this.flowerRepository.findById(o.getFlowerId()).get());
             orderFlowerEntity.setPriceForOne(((FlowerEntity)this.flowerRepository.getById(o.getFlowerId())).getPrice());
             orderFlower.add(orderFlowerEntity);

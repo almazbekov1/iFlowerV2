@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderResponse {
+
     private String sendersFullName;
     private String sendersPhoneNumber;
     private String address;

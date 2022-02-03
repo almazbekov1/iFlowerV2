@@ -19,12 +19,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(
         name = "flowers"
 )
+@Getter
+@Setter
 public class FlowerEntity implements Serializable {
     @Id
     @GeneratedValue(
@@ -44,6 +49,7 @@ public class FlowerEntity implements Serializable {
     private double price;
     private double rating;
     private boolean available;
+    private boolean block = false;
     @Enumerated(EnumType.STRING)
     private Category category;
     @OneToMany(
