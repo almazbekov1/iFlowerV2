@@ -38,3 +38,10 @@ cloud:
 application:
   bucket:
     name: iflowerv1
+
+#paypal
+paypal:
+  mode: sandbox
+  client:
+    id: ATIxHqdHjbPNxeO6eCTxA5xcqBADx7cfVkR18CN2kqw5E1vSK_5VjKlMnMTKzrzu9iDxpmgqaTRVGIFm
+    secret: EPLfSdWbiOoWWK1OeKohvoas4ugfiA_F44Yp_gzpOrvUgUNyFYRYT4f_M5Hs0JnagvryaTkEXtHXE0B9

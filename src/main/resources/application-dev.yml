@@ -1,17 +1,17 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/flowers?serverTimezone=UTC
-    driver-class-name: com.mysql.jdbc.Driver
-    username: bestuser
-    password: bestuser
-
-#    url: jdbc:mysql://aaculdcx2168y9.ckmh1nerhtqr.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/flowers?serverTimezone=UTC
 #    driver-class-name: com.mysql.jdbc.Driver
-#    username: username
-#    password: password
+#    username: bestuser
+#    password: bestuser
+
+    url: jdbc:mysql://aaculdcx2168y9.ckmh1nerhtqr.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: username
+    password: password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   servlet:
     multipart:
       max-request-size: 10MB
@@ -43,3 +43,13 @@ application:
 
 price:
   distance: 10
+
+#paypal
+paypal:
+  mode: sandbox
+  client:
+    id: ATIxHqdHjbPNxeO6eCTxA5xcqBADx7cfVkR18CN2kqw5E1vSK_5VjKlMnMTKzrzu9iDxpmgqaTRVGIFm
+    secret: EPLfSdWbiOoWWK1OeKohvoas4ugfiA_F44Yp_gzpOrvUgUNyFYRYT4f_M5Hs0JnagvryaTkEXtHXE0B9
+
+
+

@@ -9,6 +9,8 @@ import i.flowers.database.dto.OrderRequest;
 import i.flowers.database.dto.OrderResponse;
 import i.flowers.database.service.OrderService;
 import java.util.List;
+
+import i.flowers.database.service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,9 +31,11 @@ import org.springframework.web.bind.annotation.RestController;
 )
 public class OrderController {
     private final OrderService orderService;
+    private final PaymentService paymentService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, PaymentService paymentService) {
         this.orderService = orderService;
+        this.paymentService = paymentService;
     }
 
     @GetMapping({"/admin/orders"})
@@ -64,6 +68,9 @@ public class OrderController {
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         return new ResponseEntity(this.orderService.delete(id), HttpStatus.OK);
     }
-    
+    @GetMapping("/public/orders/payment/paypal/{id}")
+    public ResponseEntity<String> paypal(@PathVariable Long id){
+        return new ResponseEntity<>(paymentService.payForPaypal(id),HttpStatus.OK);
+    }
 
 }

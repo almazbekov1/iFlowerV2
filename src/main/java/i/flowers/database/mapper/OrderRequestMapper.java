@@ -14,21 +14,28 @@ import i.flowers.database.repository.FlowerRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import i.flowers.database.service.impl.OrderForPaypal;
+import i.flowers.service.AskForPrice;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderRequestMapper {
     private final FlowerRepository flowerRepository;
+    private final AskForPrice askForPrice;
     @Value("${price.distance}")
     private Double distance;
 
-    public OrderRequestMapper(FlowerRepository flowerRepository) {
+    public OrderRequestMapper(FlowerRepository flowerRepository, AskForPrice askForPrice) {
         this.flowerRepository = flowerRepository;
+        this.askForPrice = askForPrice;
     }
 
     public OrderEntity toOrder(OrderRequest orderRequest) {
         OrderEntity order = new OrderEntity();
+        OrderForPaypal paypal = askForPrice.getPriceForOrder(orderRequest.getOrders()
+                ,orderRequest.getDistance());
         order.setSendersFullName(orderRequest.getSendersFullName());
         order.setSendersPhoneNumber(orderRequest.getSendersPhoneNumber());
         order.setAddress(orderRequest.getAddress());
@@ -39,14 +46,7 @@ public class OrderRequestMapper {
         order.setDistance(orderRequest.getDistance());
         order.setOrderFlowers(this.getOrderFlower(orderRequest.getOrders()));
         order = this.setOrderFlower(order);
-        double count = 0.0D;
-
-        OrderFlowerObject o;
-        for(Iterator var5 = orderRequest.getOrders().iterator(); var5.hasNext(); count += (double)o.getAmount() * ((FlowerEntity)this.flowerRepository.findById(o.getFlowerId()).get()).getPrice()) {
-            o = (OrderFlowerObject)var5.next();
-        }
-
-        order.setPrice(orderRequest.getDistance() * this.distance + count);
+        order.setPrice(Double.valueOf(paypal.getTotal()));
         return order;
     }
 
@@ -63,7 +63,6 @@ public class OrderRequestMapper {
             orderFlowerEntity.setPriceForOne(((FlowerEntity)this.flowerRepository.getById(o.getFlowerId())).getPrice());
             orderFlower.add(orderFlowerEntity);
         }
-
         return orderFlower;
     }
 
