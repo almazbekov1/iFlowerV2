@@ -5,11 +5,18 @@
 
 package i.flowers.database.dto;
 
+import i.flowers.database.model.PaymentMethod;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import java.util.List;
 
+@Setter
+@Getter
 public class OrderResponse {
 
+    private Long id;
     private String sendersFullName;
     private String sendersPhoneNumber;
     private String address;
@@ -21,6 +28,10 @@ public class OrderResponse {
     private List<OrderFlowerObject> orders;
     private Date createdDate;
     private Double price;
+    private PaymentMethod paymentMethod;
+    private boolean done;
+    private boolean payed;
+
 
     public OrderResponse() {
     }

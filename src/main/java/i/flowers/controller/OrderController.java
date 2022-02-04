@@ -72,5 +72,14 @@ public class OrderController {
     public ResponseEntity<String> paypal(@PathVariable Long id){
         return new ResponseEntity<>(paymentService.payForPaypal(id),HttpStatus.OK);
     }
+    @GetMapping("/public/orders/payment/zelle/{id}")
+    public ResponseEntity<?> zelle(@PathVariable Long id){
+        return new ResponseEntity<>(paymentService.payForZelle(id),HttpStatus.OK);
+    }
+    @GetMapping("/public/orders/payment/other/{id}")
+    public ResponseEntity<?> other(@PathVariable Long id){
+        return new ResponseEntity<>(paymentService.payForOther(id),HttpStatus.OK);
+    }
+
 
 }

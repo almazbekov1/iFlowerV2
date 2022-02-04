@@ -40,8 +40,11 @@ public class OrderEntity {
     private String comment;
     private Double distance;
     private Double price;
+    private String transaction;
     private boolean payed = false;
     private boolean done = false;
+    private PaymentMethod paymentMethod;
+
 
     @OneToMany(
             mappedBy = "order",

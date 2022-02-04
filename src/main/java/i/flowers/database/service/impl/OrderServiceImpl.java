@@ -79,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
             throw new FLowerServiceException("flower not found/ id: " + id);
         } else {
             OrderEntity orderEntity = (OrderEntity)this.orderRepository.getById(id);
+            orderEntity.setPayed(true);
             boolean response;
             if (orderEntity.isDone()) {
                 orderEntity.setDone(false);
@@ -87,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
                 orderEntity.setDone(true);
                 response = true;
             }
-
+            orderRepository.save(orderEntity);
             return response;
         }
     }

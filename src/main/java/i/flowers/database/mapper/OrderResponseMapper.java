@@ -25,6 +25,7 @@ public class OrderResponseMapper {
 
     public OrderResponse fromOrder(OrderEntity orderEntity) {
         OrderResponse order = new OrderResponse();
+        order.setId(orderEntity.getId());
         order.setSendersFullName(orderEntity.getSendersFullName());
         order.setSendersPhoneNumber(orderEntity.getSendersPhoneNumber());
         order.setAddress(orderEntity.getAddress());
@@ -33,9 +34,12 @@ public class OrderResponseMapper {
         order.setTimeOfDelivery(orderEntity.getTimeOfDelivery());
         order.setComment(orderEntity.getComment());
         order.setDistance(orderEntity.getDistance());
+        order.setDone(orderEntity.isDone());
+        order.setPayed(orderEntity.isPayed());
         order.setOrders(this.getOrderFlower(orderEntity.getOrderFlowers()));
         order.setCreatedDate(orderEntity.getCreated());
         order.setPrice(orderEntity.getPrice());
+        order.setPaymentMethod(orderEntity.getPaymentMethod());
         return order;
     }
 
