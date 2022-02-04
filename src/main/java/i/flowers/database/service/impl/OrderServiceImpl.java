@@ -15,9 +15,11 @@ import i.flowers.database.repository.FlowerRepository;
 import i.flowers.database.repository.OrderRepository;
 import i.flowers.database.service.OrderService;
 import i.flowers.exception.FLowerServiceException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,18 +43,23 @@ public class OrderServiceImpl implements OrderService {
         do {
             if (!var2.hasNext()) {
                 OrderEntity orderEntity = this.orderRequestMapper.toOrder(order);
-                return this.orderResponseMapper.fromOrder((OrderEntity)this.orderRepository.save(orderEntity));
+                return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
             }
 
-            o = (OrderFlowerObject)var2.next();
-        } while(!this.flowerRepository.findById(o.getFlowerId()).isEmpty());
+            o = (OrderFlowerObject) var2.next();
+        } while (!this.flowerRepository.findById(o.getFlowerId()).isEmpty());
 
         throw new FLowerServiceException("flower not found/ id: " + o.getFlowerId());
     }
 
     public List<OrderResponse> findAll() {
-        List<OrderResponse> orderResponses = this.orderResponseMapper.fromOrder(this.orderRepository.findAll());
-        return orderResponses;
+//        List<OrderResponse> orderResponses = this.orderResponseMapper.fromOrder(this.orderRepository.findAll());
+        List<OrderResponse> orderResponses1 = orderResponseMapper.fromOrder(this.orderRepository.findAllNotDone());
+        List<OrderResponse> orderResponses2 = orderResponseMapper.fromOrder(this.orderRepository.findAllDone());
+
+        orderResponses1.addAll(orderResponses2);
+
+        return orderResponses1;
     }
 
     public OrderResponse findById(Long id) {
@@ -60,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.isEmpty()) {
             throw new FLowerServiceException("Flower not found/ id: " + id);
         } else {
-            OrderResponse orderResponse = this.orderResponseMapper.fromOrder((OrderEntity)orderEntity.get());
+            OrderResponse orderResponse = this.orderResponseMapper.fromOrder((OrderEntity) orderEntity.get());
             return orderResponse;
         }
     }
@@ -70,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         if (this.orderRepository.findById(id).isEmpty()) {
             throw new FLowerServiceException("flower not found/ id: " + id);
         } else {
-            return this.orderResponseMapper.fromOrder((OrderEntity)this.orderRepository.save(orderEntity));
+            return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
         }
     }
 
@@ -78,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
         if (this.orderRepository.findById(id).isEmpty()) {
             throw new FLowerServiceException("flower not found/ id: " + id);
         } else {
-            OrderEntity orderEntity = (OrderEntity)this.orderRepository.getById(id);
+            OrderEntity orderEntity = (OrderEntity) this.orderRepository.getById(id);
             orderEntity.setPayed(true);
             boolean response;
             if (orderEntity.isDone()) {

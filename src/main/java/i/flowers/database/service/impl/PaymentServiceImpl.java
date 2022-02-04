@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    public static final String SUCCESS_URL = "http://localhost:6751/api/public/orders/payment/payed/";
+    public static final String SUCCESS_URL = "http://localhost:6751/api/public/orders/payment/payed?name=";
     public static final String CANCEL_URL = "https://music.yandex.ru/home";
 
     private final OrderRepository orderRepository;
@@ -34,7 +34,8 @@ public class PaymentServiceImpl implements PaymentService {
         try {
             String href = "произошла ошибка транзакции";
             OrderEntity orderEntity = orderRepository.findById(id).get();
-            Payment payment = paypalService.getPayment(orderEntity, CANCEL_URL, SUCCESS_URL+orderEntity.getTransaction());
+            Payment payment = paypalService.getPayment(orderEntity, CANCEL_URL,
+                    SUCCESS_URL+orderEntity.getTransaction());
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
                     href =  link.getHref();
