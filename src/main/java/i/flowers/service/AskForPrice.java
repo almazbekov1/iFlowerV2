@@ -4,6 +4,7 @@ import i.flowers.database.dto.OrderFlowerObject;
 import i.flowers.database.model.OrderEntity;
 import i.flowers.database.model.OrderFlowerEntity;
 import i.flowers.database.repository.FlowerRepository;
+import i.flowers.database.repository.InfoRepository;
 import i.flowers.database.service.impl.OrderForPaypal;
 import i.flowers.database.service.impl.OrderItemForPaypal;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +17,13 @@ import java.util.List;
 @Service
 public class AskForPrice {
 
-    @Value("${price.distance}")
-    private Double distancePrice;
-
     private final FlowerRepository repo;
+    private final InfoRepository infoRepository;
 
-    public AskForPrice(FlowerRepository flowerRepository) {
+
+    public AskForPrice(FlowerRepository flowerRepository, InfoRepository infoRepository) {
         this.repo = flowerRepository;
+        this.infoRepository = infoRepository;
     }
 
 
@@ -51,6 +52,7 @@ public class AskForPrice {
             paypalItems.add(orderItemForPaypal);
             subtotal = subtotal + totalFlower;
         }
+        Double distancePrice = infoRepository.getById(1l).getPriceForDistance();
         shipping = String.valueOf(order.getDistance() * distancePrice);
         paypal.setSubtotal(String.valueOf(subtotal));
         paypal.setShipping(shipping);
@@ -89,6 +91,7 @@ public class AskForPrice {
             paypalItems.add(orderItemForPaypal);
             subtotal = subtotal + totalFlower;
         }
+        Double distancePrice = infoRepository.getById(1l).getPriceForDistance();
         shipping = String.valueOf(distance * distancePrice);
         paypal.setSubtotal(String.valueOf(subtotal));
         paypal.setShipping(shipping);

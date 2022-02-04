@@ -22,10 +22,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderRequestMapper {
+
     private final FlowerRepository flowerRepository;
     private final AskForPrice askForPrice;
-    @Value("${price.distance}")
-    private Double distance;
 
     public OrderRequestMapper(FlowerRepository flowerRepository, AskForPrice askForPrice) {
         this.flowerRepository = flowerRepository;
