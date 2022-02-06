@@ -33,8 +33,8 @@ public class InfoController {
     }
 
     @GetMapping("/public/distance")
-    public ResponseEntity<?> getDistance(@RequestParam String from,@RequestParam String to){
-        return new ResponseEntity<>(distanceMatrixService.callAndParse(from,to).toString(),HttpStatus.OK);
+    public ResponseEntity<?> getDistance(@RequestParam String from, @RequestParam String to){
+        return new ResponseEntity<>(distanceMatrixService.callAndParse(from,to),HttpStatus.OK);
     }
 
 
