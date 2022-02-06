@@ -1,52 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            width: 600px;
+        }
+    </style>
 </head>
 <body>
-<h1>hello</h1>
-
+<!--The div elements for the map and message -->
+<div id="map"></div>
+<div id="msg"></div>
 <script>
-
-    console.log("test")
-
-    fetch("http://iflowerv2.us-east-1.elasticbeanstalk.com/api/public/flowers?page=1&size=10")
-        .then(re=>{
-            return re.json()
-        })
-    .then(date=>{
-        console.log(date)
-    })
-
-    // fetch("http://iflowerv2.us-east-1.elasticbeanstalk.com/api/flowers", {
-    fetch("http://iflowerv2.us-east-1.elasticbeanstalk.com/api/admin/flowers", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJudXBhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjQzMDE0MjY4LCJleHAiOjE2NDY2MTQyNjh9.wKxomXGEOxF3wxzf1vDD0IGmCgrizrT2mxlbX_j7eVg'
-        },
-        body: JSON.stringify(
-            {
-                "name": "nupapupa",
-                "description": "string",
-                "price": 0,
-                "rating": 0,
-                "available": true,
-                "imageNames": [
-                    "string"
-                ]
-            }
-        )
-    })
-    //
-    //
-    // })
-    //     .then(s=>{
-    //     return s.json();
-    // }).then(data=>{
-    //     console.log(data)
-    // })
+    // Initialize and add the map
+    var map;
+    function initMap() {
+        // The map, centered on Central Park
+        const center = {lat: 40.774102, lng: -73.971734};
+        const options = {zoom: 15, scaleControl: true, center: center};
+        map = new google.maps.Map(
+            document.getElementById('map'), options);
+        // Locations of landmarks
+        const dakota = {lat: 40.7767644, lng: -73.9761399};
+        const frick = {lat: 40.771209, lng: -73.9673991};
+        // The markers for The Dakota and The Frick Collection
+        var mk1 = new google.maps.Marker({position: dakota, map: map});
+        var mk2 = new google.maps.Marker({position: frick, map: map});
+    }
+</script>
+<!--Load the API from the specified URL -- remember to replace YOUR_API_KEY-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
 </script>
 </body>
 </html>

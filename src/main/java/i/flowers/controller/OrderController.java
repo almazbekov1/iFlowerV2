@@ -13,15 +13,7 @@ import java.util.List;
 import i.flowers.database.service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping({"/api"})
@@ -63,6 +55,10 @@ public class OrderController {
     public ResponseEntity<Boolean> done(@PathVariable Long id) {
         return new ResponseEntity(this.orderService.done(id), HttpStatus.OK);
     }
+    @PutMapping({"/admin/orders/payed/{id}"})
+    public ResponseEntity<Boolean> payed(@PathVariable Long id) {
+        return new ResponseEntity(this.orderService.payed(id), HttpStatus.OK);
+    }
 
     @DeleteMapping({"/admin/orders/{id}"})
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
@@ -73,8 +69,8 @@ public class OrderController {
         return new ResponseEntity<>(paymentService.payForPaypal(id),HttpStatus.OK);
     }
     @GetMapping("/public/orders/payment/zelle/{id}")
-    public ResponseEntity<?> zelle(@PathVariable Long id){
-        return new ResponseEntity<>(paymentService.payForZelle(id),HttpStatus.OK);
+    public ResponseEntity<?> zelle(@PathVariable Long id, @RequestParam String zelle){
+        return new ResponseEntity<>(paymentService.payForZelle(id,zelle),HttpStatus.OK);
     }
     @GetMapping("/public/orders/payment/other/{id}")
     public ResponseEntity<?> other(@PathVariable Long id){

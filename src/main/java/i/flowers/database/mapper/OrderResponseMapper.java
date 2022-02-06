@@ -36,6 +36,7 @@ public class OrderResponseMapper {
         order.setDistance(orderEntity.getDistance());
         order.setDone(orderEntity.isDone());
         order.setPayed(orderEntity.isPayed());
+        order.setZelle(orderEntity.getZelle());
         order.setOrders(this.getOrderFlower(orderEntity.getOrderFlowers()));
         order.setCreatedDate(orderEntity.getCreated());
         order.setPrice(orderEntity.getPrice());

@@ -13,12 +13,11 @@ import i.flowers.database.model.OrderFlowerEntity;
 import i.flowers.database.model.PaymentMethod;
 import i.flowers.database.repository.FlowerRepository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import i.flowers.database.service.impl.OrderForPaypal;
 import i.flowers.service.AskForPrice;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,12 +44,13 @@ public class OrderRequestMapper {
         order.setComment(orderRequest.getComment());
         order.setDistance(orderRequest.getDistance());
         order.setPaymentMethod(PaymentMethod.OTHER);
-        order.setTransaction(LocalDateTime.now() + "" +new Random(9000000)+1000000);
+        order.setTransaction(RandomStringUtils.random(50, true, true)+Calendar.getInstance().getTimeInMillis());
         order.setOrderFlowers(this.getOrderFlower(orderRequest.getOrders()));
         order = this.setOrderFlower(order);
         order.setPrice(Double.valueOf(paypal.getTotal()));
         return order;
     }
+
 
     private List<OrderFlowerEntity> getOrderFlower(List<OrderFlowerObject> orders) {
         List<OrderFlowerEntity> orderFlower = new ArrayList();

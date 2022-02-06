@@ -18,18 +18,13 @@ public class PaymentRedirectController {
     @Autowired
     OrderRepository orderRepository;
 
-    @GetMapping("/get")
-    public String get() {
-        return "test";
-    }
     @GetMapping("/api/public/orders/payment/payed/{transaction}")
     public String successPayed(@PathVariable String transaction){
         if (orderRepository.findByTransaction(transaction).isPresent()){
             OrderEntity o = orderRepository.findByTransaction(transaction).get();
             o.setPayed(true);
             orderRepository.save(o);
-            System.out.println("success");
-            return "redirect:https://localhost:3000/flowers?name="+o.getSendersFullName();
+            return "redirect:http://localhost:3000/flowers?name="+o.getSendersFullName();
         }else {
             return "redirect:https://englishlib.org/dictionary/en-ru/failed.html";
         }

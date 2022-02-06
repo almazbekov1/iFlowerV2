@@ -20,5 +20,7 @@ public interface OrderService {
 
     boolean done(Long id);
 
+    boolean payed(Long id);
+
     boolean delete(Long id);
 }

@@ -8,12 +8,16 @@ package i.flowers.controller;
 import i.flowers.database.dto.UserRequest;
 import i.flowers.database.dto.AuthenticationRequestDto;
 import i.flowers.service.UserService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Calendar;
+import java.util.Random;
 
 @RestController
 @RequestMapping({"/api/users"})

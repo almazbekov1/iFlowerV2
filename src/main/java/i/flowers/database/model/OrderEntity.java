@@ -41,6 +41,7 @@ public class OrderEntity {
     private Double distance;
     private Double price;
     private String transaction;
+    private String zelle = "not zelle";
     private boolean payed = false;
     private boolean done = false;
     private PaymentMethod paymentMethod;

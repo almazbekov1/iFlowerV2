@@ -33,6 +33,7 @@ public class UserAdminController {
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAll() {
         List<UserResponse> users = this.userService.getAll();
+        users.remove(0);
         return new ResponseEntity(users, HttpStatus.OK);
     }
 

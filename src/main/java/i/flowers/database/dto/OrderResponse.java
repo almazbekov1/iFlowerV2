@@ -24,6 +24,7 @@ public class OrderResponse {
     private String recipientPhoneNumber;
     private Date timeOfDelivery;
     private String comment;
+    private String zelle;
     private Double distance;
     private List<OrderFlowerObject> orders;
     private Date createdDate;

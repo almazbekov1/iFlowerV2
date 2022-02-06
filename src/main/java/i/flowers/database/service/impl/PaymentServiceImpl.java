@@ -29,7 +29,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String payForPaypal(Long id) {
         if (orderRepository.findById(id).isEmpty()) {
-            throw new FLowerServiceException("no flower found by id: " + id);
+            throw new FLowerServiceException("no order found by id: " + id);
         }
         try {
             String href = "произошла ошибка транзакции";
@@ -54,11 +54,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public String payForZelle(Long id) {
+    public String payForZelle(Long id,String zelle) {
         if (orderRepository.findById(id).isEmpty()) {
-            throw new FLowerServiceException("no flower found by id: " + id);
+            throw new FLowerServiceException("no order found by id: " + id);
         }
+
         OrderEntity orderEntity = orderRepository.getById(id);
+        orderEntity.setZelle(zelle);
         orderEntity.setPaymentMethod(PaymentMethod.ZELLE);
         return "success "+orderEntity.getPaymentMethod();
     }
@@ -66,7 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String payForOther(Long id) {
         if (orderRepository.findById(id).isEmpty()) {
-            throw new FLowerServiceException("no flower found by id: " + id);
+            throw new FLowerServiceException("no order found by id: " + id);
         }
         OrderEntity orderEntity = orderRepository.getById(id);
         orderEntity.setPaymentMethod(PaymentMethod.OTHER);

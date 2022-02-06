@@ -74,9 +74,11 @@ public class OrderServiceImpl implements OrderService {
 
     public OrderResponse updateOrder(OrderRequest orderRequest, Long id) {
         OrderEntity orderEntity = this.orderRequestMapper.toOrder(orderRequest);
+
         if (this.orderRepository.findById(id).isEmpty()) {
             throw new FLowerServiceException("flower not found/ id: " + id);
         } else {
+            orderEntity.setId(id);
             return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
         }
     }
@@ -93,6 +95,25 @@ public class OrderServiceImpl implements OrderService {
                 response = false;
             } else {
                 orderEntity.setDone(true);
+                response = true;
+            }
+            orderRepository.save(orderEntity);
+            return response;
+        }
+    }
+
+    @Override
+    public boolean payed(Long id) {
+        if (this.orderRepository.findById(id).isEmpty()) {
+            throw new FLowerServiceException("flower not found/ id: " + id);
+        } else {
+            OrderEntity orderEntity = (OrderEntity) this.orderRepository.getById(id);
+            boolean response;
+            if (orderEntity.isPayed()) {
+                orderEntity.setPayed(false);
+                response = false;
+            } else {
+                orderEntity.setPayed(true);
                 response = true;
             }
             orderRepository.save(orderEntity);
