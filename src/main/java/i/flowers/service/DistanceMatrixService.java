@@ -1,6 +1,7 @@
 package i.flowers.service;
 
 import com.google.gson.*;
+import i.flowers.exception.OrderServiceException;
 import i.flowers.exception.UserServiceException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ public class DistanceMatrixService {
     @Value("${distance.matrix}")
     private String distanceMatrixApiKey;
 
-    public DistanceResponse callAndParse(String from, String to) {
+    @Value("${distance.from}")
+    private String from;
+
+    public DistanceResponse callAndParse( String to) {
         URL url;
         try {
             url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?"
@@ -36,12 +40,13 @@ public class DistanceMatrixService {
             in.close();
             con.disconnect();
             Gson gson = new Gson();
-            DistanceResponse d = gson.fromJson(content.toString(), DistanceResponse.class);
-            return d;
-        } catch (IOException e) {
-            JsonObject error = new JsonObject();
-            error.add("error", new JsonPrimitive(e.getMessage()));
-            throw new UserServiceException("bad request");
+            DistanceResponse response = gson.fromJson(content.toString(), DistanceResponse.class);
+            Double dis = Double.valueOf(response.getRows().get(0).getElements().get(0).getDistance().getValue());
+            response.setDistance(dis/1000);
+            validate(response);
+            return response;
+        } catch (Exception e) {
+            throw new UserServiceException("incorrect address data");
         }
     }
 
@@ -50,7 +55,6 @@ public class DistanceMatrixService {
         from = from.replace(',', ' ');
         String[] froms = from.split(" ");
         String[] toes = to.split(" ");
-
         String result = "origins=";
         for (int i = 0; i < froms.length; i++) {
             if (froms[i] != "" && froms[i] != null && !froms[i].isBlank()) {
@@ -80,21 +84,9 @@ public class DistanceMatrixService {
 
         return result;
     }
-
-    public static void main(String[] args) {
-        String s = "Bishkek,ShabdanBaatyra-155";
-        String s2 = "Bishkek ,ShabdanBaatyra-155";
-        String ha = " ";
-        String a = s.replace(',', ' ');
-        if (ha.isBlank()) {
-            System.out.println("s ");
+    private void validate(DistanceResponse response){
+        if (response.getDistance()==null||response.getDistance()>2000){
+            throw new OrderServiceException("bad request address");
         }
-
-
-//        for (int i = 0; i < strings.length; i++) {
-//            System.out.println(strings[i]);
-//        }
     }
-
-
 }

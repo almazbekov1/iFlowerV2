@@ -1,6 +1,7 @@
 package i.flowers.service;
 
 import i.flowers.database.dto.OrderFlowerObject;
+import i.flowers.database.model.FlowerEntity;
 import i.flowers.database.model.OrderEntity;
 import i.flowers.database.model.OrderFlowerEntity;
 import i.flowers.database.repository.FlowerRepository;
@@ -37,9 +38,13 @@ public class AskForPrice {
         for (OrderFlowerEntity f : order.getOrderFlowers()
         ) {
             OrderItemForPaypal orderItemForPaypal = new OrderItemForPaypal();
-            double priceFlower = f.getFlower().getPrice();
+            double percent = f.getFlower().getPrice() / 100;
+            percent = percent * f.getFlower().getDiscount();
+            double priceFlower = f.getFlower().getPrice() - percent;
             Long amountFlower = f.getAmount();
             double totalFlower = priceFlower * amountFlower;
+            totalFlower = Math.round(totalFlower * 10);
+            totalFlower = totalFlower / 10;
             orderItemForPaypal.setDescription(f.getFlower().getDescription());
             orderItemForPaypal.setPrice(String.valueOf(priceFlower));
             orderItemForPaypal.setName(f.getFlower().getName());
@@ -53,7 +58,7 @@ public class AskForPrice {
             subtotal = subtotal + totalFlower;
         }
         Double distancePrice = infoRepository.getById(1l).getPriceForDistance();
-        shipping = String.valueOf(order.getDistance() * distancePrice);
+        shipping = String.valueOf(Math.round(order.getDistance() * distancePrice));
         paypal.setSubtotal(String.valueOf(subtotal));
         paypal.setShipping(shipping);
         paypal.setTax(String.valueOf(tax));
@@ -66,7 +71,7 @@ public class AskForPrice {
     }
 
 
-    public OrderForPaypal getPriceForOrder(List<OrderFlowerObject> orders,Double distance) {
+    public OrderForPaypal getPriceForOrder(List<OrderFlowerObject> orders, Double distance) {
         OrderForPaypal paypal = new OrderForPaypal();
         List<OrderItemForPaypal> paypalItems = new ArrayList<>();
         double total = 0;
@@ -76,14 +81,19 @@ public class AskForPrice {
         for (OrderFlowerObject f : orders
         ) {
             OrderItemForPaypal orderItemForPaypal = new OrderItemForPaypal();
-            double priceFlower = repo.getById(f.getFlowerId()).getPrice();
+            FlowerEntity flower = repo.getById(f.getFlowerId());
+            double percent = flower.getPrice() / 100;
+            percent = percent * flower.getDiscount();
+            double priceFlower = flower.getPrice() - percent;
             Long amountFlower = f.getAmount();
             double totalFlower = priceFlower * amountFlower;
-            orderItemForPaypal.setDescription(repo.getById(f.getFlowerId()).getDescription());
+            totalFlower = Math.round(totalFlower * 10);
+            totalFlower = totalFlower / 10;
+            orderItemForPaypal.setDescription(flower.getDescription());
             orderItemForPaypal.setPrice(String.valueOf(priceFlower));
-            orderItemForPaypal.setName(repo.getById(f.getFlowerId()).getName());
+            orderItemForPaypal.setName(flower.getName());
             orderItemForPaypal.setQuantity(String.valueOf(f.getAmount()));
-            orderItemForPaypal.setSku(repo.getById(f.getFlowerId()).getName() + LocalDateTime.now());
+            orderItemForPaypal.setSku(flower.getName() + LocalDateTime.now());
             // tax
             double taxDetail = 0;
             orderItemForPaypal.setTax(String.valueOf(taxDetail));
@@ -101,9 +111,5 @@ public class AskForPrice {
         paypal.setOrderItems(paypalItems);
 
         return paypal;
-
     }
-
-
-
 }

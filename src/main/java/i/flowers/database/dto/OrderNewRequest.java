@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderRequest {
+public class OrderNewRequest {
     private String sendersFullName;
     private String sendersPhoneNumber;
     private String address;
@@ -18,14 +18,13 @@ public class OrderRequest {
     private String recipientPhoneNumber;
     private Date timeOfDelivery;
     private String comment;
-    private Double distance;
     private List<OrderFlowerObject> orders;
 
-    public OrderRequest() {
+    public OrderNewRequest() {
     }
 
     public String toString() {
-        return "OrderRequest{sendersFullName='" + this.sendersFullName + "', sendersPhoneNumber='" + this.sendersPhoneNumber + "', address='" + this.address + "', recipientFullName='" + this.recipientFullName + "', recipientPhoneNumber='" + this.recipientPhoneNumber + "', timeOfDelivery='" + this.timeOfDelivery + "', comment='" + this.comment + "', distance=" + this.distance + ", orders=" + this.orders + "}";
+        return "OrderRequest{sendersFullName='" + this.sendersFullName + "', sendersPhoneNumber='" + this.sendersPhoneNumber + "', address='" + this.address + "', recipientFullName='" + this.recipientFullName + "', recipientPhoneNumber='" + this.recipientPhoneNumber + "', timeOfDelivery='" + this.timeOfDelivery + "', comment='" + this.comment + "', distance=" + ", orders=" + this.orders + "}";
     }
 
     public String getSendersFullName() {
@@ -54,10 +53,6 @@ public class OrderRequest {
 
     public String getComment() {
         return this.comment;
-    }
-
-    public Double getDistance() {
-        return this.distance;
     }
 
     public List<OrderFlowerObject> getOrders() {
@@ -92,9 +87,6 @@ public class OrderRequest {
         this.comment = comment;
     }
 
-    public void setDistance(final Double distance) {
-        this.distance = distance;
-    }
 
     public void setOrders(final List<OrderFlowerObject> orders) {
         this.orders = orders;

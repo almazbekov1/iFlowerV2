@@ -1,12 +1,8 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package i.flowers.controller;
 
-import i.flowers.database.dto.OrderRequest;
+import i.flowers.database.dto.OrderNewRequest;
 import i.flowers.database.dto.OrderResponse;
+import i.flowers.database.dto.OrderUpdateRequest;
 import i.flowers.database.service.OrderService;
 import java.util.List;
 
@@ -37,8 +33,8 @@ public class OrderController {
     }
 
     @PostMapping({"/public/orders"})
-    public OrderResponse saveOrder(@RequestBody OrderRequest orderRequest) {
-        return this.orderService.addNewOrder(orderRequest);
+    public OrderResponse saveOrder(@RequestBody OrderNewRequest orderNewRequest) {
+        return this.orderService.addNewOrder(orderNewRequest);
     }
 
     @GetMapping({"/admin/orders/{id}"})
@@ -47,8 +43,8 @@ public class OrderController {
     }
 
     @PutMapping({"/admin/orders/{id}"})
-    public ResponseEntity<OrderResponse> update(@PathVariable Long id, @RequestBody OrderRequest orderRequest) {
-        return new ResponseEntity(this.orderService.updateOrder(orderRequest, id), HttpStatus.OK);
+    public ResponseEntity<OrderResponse> update(@PathVariable Long id, @RequestBody OrderUpdateRequest orderNewRequest) {
+        return new ResponseEntity(this.orderService.updateOrder(orderNewRequest, id), HttpStatus.OK);
     }
 
     @PutMapping({"/admin/orders/done/{id}"})

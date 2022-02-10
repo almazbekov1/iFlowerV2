@@ -29,10 +29,11 @@ public class FlowerResponse {
     private boolean block;
     private List<String> image;
     private Category category;
+    private Double discount;
 
     public static FlowerResponse fromFLower(FlowerEntity flower) {
         return new FlowerResponse(flower.getId(), flower.getName(), flower.getDescription(), flower.getPrice()
-                , flower.getRating(), getImages(flower.getImages()), flower.isAvailable(), flower.getCategory(),flower.isBlock());
+                , flower.getRating(), getImages(flower.getImages()), flower.isAvailable(), flower.getCategory(),flower.isBlock(),flower.getDiscount());
     }
 
     public List<FlowerResponse> fromFlower(List<FlowerEntity> flowerEntities) {
@@ -60,7 +61,7 @@ public class FlowerResponse {
     }
 
     public FlowerResponse(Long id, String name, String description, double price
-            , double rating, List<String> image, boolean available, Category category,Boolean isBlock) {
+            , double rating, List<String> image, boolean available, Category category,Boolean isBlock,Double discount) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -70,6 +71,7 @@ public class FlowerResponse {
         this.available = available;
         this.category = category;
         this.block = isBlock;
+        this.discount = discount;
     }
 
     public FlowerResponse() {

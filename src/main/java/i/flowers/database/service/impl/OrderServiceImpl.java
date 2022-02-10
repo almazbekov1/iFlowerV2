@@ -6,8 +6,9 @@
 package i.flowers.database.service.impl;
 
 import i.flowers.database.dto.OrderFlowerObject;
-import i.flowers.database.dto.OrderRequest;
+import i.flowers.database.dto.OrderNewRequest;
 import i.flowers.database.dto.OrderResponse;
+import i.flowers.database.dto.OrderUpdateRequest;
 import i.flowers.database.mapper.OrderRequestMapper;
 import i.flowers.database.mapper.OrderResponseMapper;
 import i.flowers.database.model.OrderEntity;
@@ -17,26 +18,22 @@ import i.flowers.database.service.OrderService;
 import i.flowers.exception.FLowerServiceException;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
+import i.flowers.service.DistanceMatrixService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderRequestMapper orderRequestMapper;
     private final OrderResponseMapper orderResponseMapper;
     private final FlowerRepository flowerRepository;
+    private final DistanceMatrixService distanceMatrixService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderRequestMapper orderRequestMapper, OrderResponseMapper orderResponseMapper, FlowerRepository flowerRepository) {
-        this.orderRepository = orderRepository;
-        this.orderRequestMapper = orderRequestMapper;
-        this.orderResponseMapper = orderResponseMapper;
-        this.flowerRepository = flowerRepository;
-    }
 
-    public OrderResponse addNewOrder(OrderRequest order) {
+    public OrderResponse addNewOrder(OrderNewRequest order) {
         Iterator var2 = order.getOrders().iterator();
 
         OrderFlowerObject o;
@@ -72,15 +69,12 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public OrderResponse updateOrder(OrderRequest orderRequest, Long id) {
-        OrderEntity orderEntity = this.orderRequestMapper.toOrder(orderRequest);
+    @Override
+    public OrderResponse updateOrder(OrderUpdateRequest orderNewRequest, Long id) {
+        OrderEntity orderEntity = this.orderRequestMapper.toOrder(orderNewRequest, id);
 
-        if (this.orderRepository.findById(id).isEmpty()) {
-            throw new FLowerServiceException("flower not found/ id: " + id);
-        } else {
-            orderEntity.setId(id);
-            return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
-        }
+        return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
+
     }
 
     public boolean done(Long id) {
@@ -121,6 +115,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
     public boolean delete(Long id) {
         try {
             if (this.orderRepository.findById(id).isEmpty()) {
@@ -134,4 +129,5 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
     }
+
 }

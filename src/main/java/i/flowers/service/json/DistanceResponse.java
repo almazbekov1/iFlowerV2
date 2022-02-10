@@ -15,8 +15,5 @@ public class DistanceResponse {
     private List<String> origin_addresses;
     private List<Row> rows;
     private String status;
-
-
-
-
+    private Double distance;
 }

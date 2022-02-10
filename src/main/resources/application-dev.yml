@@ -42,7 +42,7 @@ application:
     name: iflowerv1
 
 price:
-  distance: 10
+  distance: 2
 
 #paypal
 paypal:
@@ -52,6 +52,7 @@ paypal:
     secret: EPLfSdWbiOoWWK1OeKohvoas4ugfiA_F44Yp_gzpOrvUgUNyFYRYT4f_M5Hs0JnagvryaTkEXtHXE0B9
 distance:
   matrix: AIzaSyAey_oEr5oWu84PmOLpU6GitUNWjy9bAKc
+  from: Bishkek
 
 
 

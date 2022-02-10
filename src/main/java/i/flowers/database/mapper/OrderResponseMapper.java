@@ -63,8 +63,10 @@ public class OrderResponseMapper {
         while(var3.hasNext()) {
             OrderFlowerEntity o = (OrderFlowerEntity)var3.next();
             OrderFlowerObject orderFlowerObject = new OrderFlowerObject();
+            orderFlowerObject.setId(o.getId());
             orderFlowerObject.setAmount(o.getAmount());
             orderFlowerObject.setFlowerId(o.getFlower().getId());
+            orderFlowerObject.setDiscount(o.getDiscount());
             orderFlowerObject.setPrice((long)((double)o.getAmount() * o.getFlower().getPrice()));
             orderFlower.add(orderFlowerObject);
         }

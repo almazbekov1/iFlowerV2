@@ -52,6 +52,7 @@ public class FlowerEntity implements Serializable {
     private boolean block = false;
     @Enumerated(EnumType.STRING)
     private Category category;
+    private Double discount;
     @OneToMany(
             cascade = {CascadeType.ALL},
             fetch = FetchType.EAGER
@@ -61,7 +62,7 @@ public class FlowerEntity implements Serializable {
     public FlowerEntity() {
     }
 
-    public FlowerEntity(String name, String description, double price, double rating, boolean available, List<ImageEntity> images, Category category) {
+    public FlowerEntity(String name, String description, double price, double rating, boolean available, List<ImageEntity> images, Category category,Double discount) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -69,6 +70,7 @@ public class FlowerEntity implements Serializable {
         this.available = available;
         this.images = images;
         this.category = category;
+        this.discount = discount;
     }
 
     public String toString() {

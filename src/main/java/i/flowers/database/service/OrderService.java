@@ -5,18 +5,20 @@
 
 package i.flowers.database.service;
 
-import i.flowers.database.dto.OrderRequest;
+import i.flowers.database.dto.OrderNewRequest;
 import i.flowers.database.dto.OrderResponse;
+import i.flowers.database.dto.OrderUpdateRequest;
+
 import java.util.List;
 
 public interface OrderService {
-    OrderResponse addNewOrder(OrderRequest order);
+    OrderResponse addNewOrder(OrderNewRequest order);
 
     List<OrderResponse> findAll();
 
     OrderResponse findById(Long id);
 
-    OrderResponse updateOrder(OrderRequest orderRequest, Long id);
+    OrderResponse updateOrder(OrderUpdateRequest orderNewRequest, Long id);
 
     boolean done(Long id);
 

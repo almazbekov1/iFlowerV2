@@ -5,10 +5,19 @@
 
 package i.flowers.database.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class OrderFlowerObject {
+    private Long id;
     private Long flowerId;
     private Long amount;
     private Long price;
+    private Double discount;
 
     public OrderFlowerObject() {
     }

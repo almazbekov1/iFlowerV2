@@ -12,9 +12,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
+@Getter
+@Setter
 public class FlowerRequest {
     @NotNull
     private String name;
@@ -31,11 +36,13 @@ public class FlowerRequest {
     @NotNull
     private Category category;
 
+    private Double discount;
+
     public FlowerRequest() {
     }
 
     public FlowerEntity toFlower() {
-        return new FlowerEntity(this.name, this.description, this.price, this.rating, this.available, this.getImages(this.imageNames), this.category);
+        return new FlowerEntity(this.name, this.description, this.price, this.rating, this.available, this.getImages(this.imageNames), this.category,this.discount);
     }
 
     private List<ImageEntity> getImages(List<String> strings) {
