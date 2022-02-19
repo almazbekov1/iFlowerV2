@@ -50,7 +50,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public List<OrderResponse> findAll() {
-//        List<OrderResponse> orderResponses = this.orderResponseMapper.fromOrder(this.orderRepository.findAll());
         List<OrderResponse> orderResponses1 = orderResponseMapper.fromOrder(this.orderRepository.findAllNotDone());
         List<OrderResponse> orderResponses2 = orderResponseMapper.fromOrder(this.orderRepository.findAllDone());
 

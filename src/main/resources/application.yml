@@ -1,45 +1,44 @@
 spring:
   datasource:
-        url: jdbc:mysql://localhost:3306/flowers?serverTimezone=UTC
-        driver-class-name: com.mysql.jdbc.Driver
-        username: bestuser
-        password: bestuser
-
-#    url: jdbc:mysql://aaculdcx2168y9.ckmh1nerhtqr.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
-#    driver-class-name: com.mysql.jdbc.Driver
-#    username: username
-#    password: password
+    url: jdbc:mysql://aa1loflu9e1cmfo.clywv6vvxh6w.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: username
+    password: password
   jpa:
     hibernate:
       ddl-auto: update
   servlet:
     multipart:
-      max-request-size: 10MB
-      max-file-size: 10MB
+      max-request-size: 256MB
+      max-file-size: 256MB
       enabled: true
-      file-size-threshold: 6MB
+#      file-size-threshold: 12MB
+#      location:
 
 jwt:
   token:
     secret: jwtuser
-    expired: 3600000000000000000
+    expired: 5184000000
 
 server:
-  port: 5000
+  port: 6751
+#  tomcat:
+#    max-swallow-size: 256MB
+#    max-http-form-post-size: 256MB
 
 #Amazon S3
 cloud:
   aws:
     credentials:
-      access-key: AKIAYOZQ6BVH73C2TCA6
-      secret-key: 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
+      access-key: AKIATVBKO5ZQ2RNRYP3L
+      secret-key: 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
     region:
-      static: ap-southeast-1
+      static: us-east-1
     stack:
       auto: false
 application:
   bucket:
-    name: iflowerv1
+    name: afaidam
 
 price:
   distance: 2
@@ -50,9 +49,8 @@ paypal:
   client:
     id: ATIxHqdHjbPNxeO6eCTxA5xcqBADx7cfVkR18CN2kqw5E1vSK_5VjKlMnMTKzrzu9iDxpmgqaTRVGIFm
     secret: EPLfSdWbiOoWWK1OeKohvoas4ugfiA_F44Yp_gzpOrvUgUNyFYRYT4f_M5Hs0JnagvryaTkEXtHXE0B9
+
+#google map api
 distance:
   matrix: AIzaSyAey_oEr5oWu84PmOLpU6GitUNWjy9bAKc
   from: Bishkek
-
-
-

@@ -23,6 +23,8 @@ public class InfoEntity {
     private String phone;
     private String zelle;
     private Double priceForDistance;
+    private String description;
+    private String image;
 
 
 

@@ -14,9 +14,10 @@ import lombok.ToString;
 @ToString
 public class OrderFlowerObject {
     private Long id;
+    private String flowerName;
     private Long flowerId;
     private Long amount;
-    private Long price;
+    private Double price;
     private Double discount;
 
     public OrderFlowerObject() {
@@ -30,10 +31,6 @@ public class OrderFlowerObject {
         return this.amount;
     }
 
-    public Long getPrice() {
-        return this.price;
-    }
-
     public void setFlowerId(final Long flowerId) {
         this.flowerId = flowerId;
     }
@@ -42,7 +39,4 @@ public class OrderFlowerObject {
         this.amount = amount;
     }
 
-    public void setPrice(final Long price) {
-        this.price = price;
-    }
 }

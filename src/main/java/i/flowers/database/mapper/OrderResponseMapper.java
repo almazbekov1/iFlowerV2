@@ -64,10 +64,11 @@ public class OrderResponseMapper {
             OrderFlowerEntity o = (OrderFlowerEntity)var3.next();
             OrderFlowerObject orderFlowerObject = new OrderFlowerObject();
             orderFlowerObject.setId(o.getId());
+            orderFlowerObject.setFlowerName(o.getFlower().getName());
             orderFlowerObject.setAmount(o.getAmount());
             orderFlowerObject.setFlowerId(o.getFlower().getId());
             orderFlowerObject.setDiscount(o.getDiscount());
-            orderFlowerObject.setPrice((long)((double)o.getAmount() * o.getFlower().getPrice()));
+            orderFlowerObject.setPrice(o.getPrice());
             orderFlower.add(orderFlowerObject);
         }
 
