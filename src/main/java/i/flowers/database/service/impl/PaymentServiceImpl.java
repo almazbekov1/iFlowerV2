@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    public static final String SUCCESS_URL = "http://localhost:6751/api/public/orders/payment/payed?name=";
-    public static final String CANCEL_URL = "https://music.yandex.ru/home";
+//    public static final String SUCCESS_URL = "http://localhost:6751/api/public/orders/payment/payed?name=";
+    public static final String SUCCESS_URL = "http://iflower-env.eba-twvf884n.us-east-1.elasticbeanstalk.com/api/public/orders/payment/payed/";
+    public static final String CANCEL_URL = "http://localhost:3000/flowers";
 
     private final OrderRepository orderRepository;
     private final PaypalService paypalService;

@@ -5,6 +5,7 @@
 
 package i.flowers.database.mapper;
 
+import i.flowers.database.dto.FlowerResponse;
 import i.flowers.database.dto.OrderFlowerObject;
 import i.flowers.database.dto.OrderResponse;
 import i.flowers.database.model.OrderEntity;
@@ -17,11 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderResponseMapper {
-    private final FlowerRepository flowerRepository;
 
-    public OrderResponseMapper(FlowerRepository flowerRepository) {
-        this.flowerRepository = flowerRepository;
-    }
 
     public OrderResponse fromOrder(OrderEntity orderEntity) {
         OrderResponse order = new OrderResponse();
@@ -69,6 +66,7 @@ public class OrderResponseMapper {
             orderFlowerObject.setFlowerId(o.getFlower().getId());
             orderFlowerObject.setDiscount(o.getDiscount());
             orderFlowerObject.setPrice(o.getPrice());
+            orderFlowerObject.setFlower(FlowerResponse.fromFLower(o.getFlower()));
             orderFlower.add(orderFlowerObject);
         }
 

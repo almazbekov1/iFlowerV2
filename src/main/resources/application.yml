@@ -21,7 +21,7 @@ jwt:
     expired: 5184000000
 
 server:
-  port: 6751
+  port: 5000
 #  tomcat:
 #    max-swallow-size: 256MB
 #    max-http-form-post-size: 256MB

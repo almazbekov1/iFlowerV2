@@ -52,7 +52,7 @@ public class FlowerEntity implements Serializable {
     private boolean block = false;
     @Enumerated(EnumType.STRING)
     private Category category;
-    private Double discount;
+    private Double discount = 0d;
     @OneToMany(
             cascade = {CascadeType.ALL},
             fetch = FetchType.EAGER

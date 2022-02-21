@@ -19,6 +19,7 @@ public class OrderFlowerObject {
     private Long amount;
     private Double price;
     private Double discount;
+    private FlowerResponse flower;
 
     public OrderFlowerObject() {
     }
