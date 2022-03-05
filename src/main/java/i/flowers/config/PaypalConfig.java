@@ -4,6 +4,8 @@ package i.flowers.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import i.flowers.database.repository.InfoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,10 @@ public class PaypalConfig {
     private String clientSecret;
     @Value("${paypal.mode}")
     private String mode;
+
+
+    @Autowired
+    InfoRepository infoRepository;
 
     @Bean
     public Map<String, String> paypalSdkConfig() {

@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentRedirectController {
     //
 
-    public static final String SUCCESS_URL = "redirect:localhost:3000/flowers?name=";
-    //    public static final String SUCCESS_URL = "redirect:http://iflowers.s3-website-us-east-1.amazonaws.com/flowers?name=";
-    public static final String FAILED_URL = "redirect:localhost:3000/flowers?failed=";
+//    public static final String SUCCESS_URL = "redirect:localhost:3000/flowers?name=";
+        public static final String SUCCESS_URL = "redirect:http://iflowers.s3-website-us-east-1.amazonaws.com/flowers?name=";
+        public static final String FAILED_URL = "redirect:http://iflowers.s3-website-us-east-1.amazonaws.com/flowers?failed=";
+//    public static final String FAILED_URL = "redirect:localhost:3000/flowers?failed=";
 
     @Autowired
     AskForPrice payService;

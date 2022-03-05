@@ -20,6 +20,7 @@ import i.flowers.exception.FLowerServiceException;
 import java.util.*;
 
 import i.flowers.service.DistanceMatrixService;
+import i.flowers.service.SendEmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +31,19 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRequestMapper orderRequestMapper;
     private final OrderResponseMapper orderResponseMapper;
     private final FlowerRepository flowerRepository;
-    private final DistanceMatrixService distanceMatrixService;
-
+    private final SendEmailService sendEmailService;
 
     public OrderResponse addNewOrder(OrderNewRequest order) {
+
+
         Iterator var2 = order.getOrders().iterator();
 
         OrderFlowerObject o;
         do {
             if (!var2.hasNext()) {
                 OrderEntity orderEntity = this.orderRequestMapper.toOrder(order);
+
+//                sendEmailService.sendEmail(orderEntity);
                 return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
             }
 
@@ -71,7 +75,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponse updateOrder(OrderUpdateRequest orderNewRequest, Long id) {
         OrderEntity orderEntity = this.orderRequestMapper.toOrder(orderNewRequest, id);
-
         return this.orderResponseMapper.fromOrder((OrderEntity) this.orderRepository.save(orderEntity));
 
     }

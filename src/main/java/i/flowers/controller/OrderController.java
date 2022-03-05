@@ -3,6 +3,7 @@ package i.flowers.controller;
 import i.flowers.database.dto.OrderNewRequest;
 import i.flowers.database.dto.OrderResponse;
 import i.flowers.database.dto.OrderUpdateRequest;
+import i.flowers.database.repository.InfoRepository;
 import i.flowers.database.service.OrderService;
 import java.util.List;
 
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final OrderService orderService;
     private final PaymentService paymentService;
+    private final InfoRepository infoRepository;
 
-    public OrderController(OrderService orderService, PaymentService paymentService) {
+    public OrderController(OrderService orderService, PaymentService paymentService, InfoRepository infoRepository) {
         this.orderService = orderService;
         this.paymentService = paymentService;
+        this.infoRepository = infoRepository;
     }
 
     @GetMapping({"/admin/orders"})
@@ -60,10 +63,10 @@ public class OrderController {
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         return new ResponseEntity(this.orderService.delete(id), HttpStatus.OK);
     }
-    @GetMapping("/public/orders/payment/paypal/{id}")
-    public ResponseEntity<String> paypal(@PathVariable Long id){
-        return new ResponseEntity<>(paymentService.payForPaypal(id),HttpStatus.OK);
-    }
+//    @GetMapping("/public/orders/payment/paypal/{id}")
+//    public ResponseEntity<String> paypal(@PathVariable Long id){
+//        return new ResponseEntity<>(paymentService.payForPaypal(id),HttpStatus.OK);
+//    }
     @GetMapping("/public/orders/payment/zelle/{id}")
     public ResponseEntity<?> zelle(@PathVariable Long id, @RequestParam String zelle){
         return new ResponseEntity<>(paymentService.payForZelle(id,zelle),HttpStatus.OK);
@@ -71,6 +74,12 @@ public class OrderController {
     @GetMapping("/public/orders/payment/other/{id}")
     public ResponseEntity<?> other(@PathVariable Long id){
         return new ResponseEntity<>(paymentService.payForOther(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/public/orders/payment/paypal/{id}")
+    public ResponseEntity<String> paypalSimple(@PathVariable Long id){
+        paymentService.payForPaypalSimple(id);
+        return new ResponseEntity<>(infoRepository.getById(1l).getAddress(),HttpStatus.OK);
     }
 
 

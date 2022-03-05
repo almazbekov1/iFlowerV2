@@ -31,13 +31,13 @@ public class PaypalService {
         redirectUrls.setCancelUrl(cancelUrl);
         redirectUrls.setReturnUrl(successUrl);
         payment.setRedirectUrls(redirectUrls);
+        System.out.println(payment);
         return payment.create(apiContext);
 
     }
 
     public List<Transaction> getTransactions(OrderForPaypal order) {
         Transaction transaction = new Transaction();
-
         Amount amount = new Amount();
         amount.setCurrency("USD");
         amount.setTotal(order.getTotal());

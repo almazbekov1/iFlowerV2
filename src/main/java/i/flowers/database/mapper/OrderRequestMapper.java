@@ -65,7 +65,9 @@ public class OrderRequestMapper {
         if (orderEntity.isEmpty()){
             throw new OrderServiceException("order not found");
         }
+        orderRepository.delete(orderEntity.get());
         OrderEntity order = orderEntity.get();
+        order.getOrderFlowers().clear();
         order.setSendersFullName(orderUpdateRequest.getSendersFullName());
         order.setSendersPhoneNumber(orderUpdateRequest.getSendersPhoneNumber());
         order.setAddress(orderUpdateRequest.getAddress());
@@ -100,6 +102,10 @@ public class OrderRequestMapper {
             double priceFlower = flower.getPrice() - percent;
             Long amountFlower = o.getAmount();
             double totalFlower = priceFlower * amountFlower;
+
+            totalFlower = Math.round(totalFlower * 10);
+            totalFlower = totalFlower / 10;
+
             orderFlowerEntity.setAmount(o.getAmount());
             orderFlowerEntity.setPrice(totalFlower);
             orderFlowerEntity.setDiscount(flower.getDiscount());

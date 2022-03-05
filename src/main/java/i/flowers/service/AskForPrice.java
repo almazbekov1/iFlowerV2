@@ -41,6 +41,8 @@ public class AskForPrice {
             double percent = f.getFlower().getPrice() / 100;
             percent = percent * f.getFlower().getDiscount();
             double priceFlower = f.getFlower().getPrice() - percent;
+            priceFlower = Math.round(priceFlower * 10);
+            priceFlower = priceFlower / 10;
             Long amountFlower = f.getAmount();
             double totalFlower = priceFlower * amountFlower;
             totalFlower = Math.round(totalFlower * 10);
@@ -107,6 +109,8 @@ public class AskForPrice {
         paypal.setShipping(shipping);
         paypal.setTax(String.valueOf(tax));
         total = subtotal + Double.valueOf(shipping) + tax;
+        total = Math.round(total * 10);
+        total = total / 10;
         paypal.setTotal(String.valueOf(total));
         paypal.setOrderItems(paypalItems);
 
