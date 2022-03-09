@@ -15,7 +15,7 @@
     <name>iFlowerV2</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
         <mysql.connetor.version>8.0.15</mysql.connetor.version>
         <jsonwebtoken.version>0.8.0</jsonwebtoken.version>
     </properties>
@@ -104,6 +104,16 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
 
     </dependencies>
 

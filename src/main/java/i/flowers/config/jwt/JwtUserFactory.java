@@ -1,8 +1,8 @@
 package i.flowers.config.jwt;
 
 
-import i.flowers.model.Role;
-import i.flowers.model.User;
+import i.flowers.database.model.Role;
+import i.flowers.database.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

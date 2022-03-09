@@ -26,7 +26,6 @@ public class JwtUser implements UserDetails {
             Collection<? extends GrantedAuthority> authorities,
             boolean enabled
     ) {
-        System.out.println("jwt user create");
         this.id = id;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;

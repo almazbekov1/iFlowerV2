@@ -1,6 +1,6 @@
 package i.flowers.config.jwt;
 
-import i.flowers.model.Role;
+import i.flowers.database.model.Role;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer_") && bearerToken.length() > 7) {
             return bearerToken.substring(7);
         }
         return null;

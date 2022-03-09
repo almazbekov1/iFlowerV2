@@ -1,9 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://aa1loflu9e1cmfo.clywv6vvxh6w.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/flowers?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
-    username: username
-    password: password
+    username: bestuser
+    password: bestuser
+
+  #    url: jdbc:mysql://aa1loflu9e1cmfo.clywv6vvxh6w.us-east-1.rds.amazonaws.com:3306/ebdb?serverTimezone=UTC
+  #    driver-class-name: com.mysql.jdbc.Driver
+  #    username: username
+  #    password: password
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,7 +26,7 @@ jwt:
     expired: 5184000000
 
 server:
-  port: 5000
+  port: 6751
 #  tomcat:
 #    max-swallow-size: 256MB
 #    max-http-form-post-size: 256MB
@@ -49,9 +54,7 @@ paypal:
   client:
     id: ATIxHqdHjbPNxeO6eCTxA5xcqBADx7cfVkR18CN2kqw5E1vSK_5VjKlMnMTKzrzu9iDxpmgqaTRVGIFm
     secret: EPLfSdWbiOoWWK1OeKohvoas4ugfiA_F44Yp_gzpOrvUgUNyFYRYT4f_M5Hs0JnagvryaTkEXtHXE0B9
-
-#google map api
 distance:
-  #  matrix: AIzaSyAey_oEr5oWu84PmOLpU6GitUNWjy9bAKc
+#  matrix: AIzaSyAey_oEr5oWu84PmOLpU6GitUNWjy9bAKc
   matrix: AIzaSyDmwZHal7KoDqNAVPXaSpu9WFwPlO20pTg
   from: 600 Stone Brook Ct Elk Grove Village IL 60007
