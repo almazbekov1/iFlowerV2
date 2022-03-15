@@ -1,0 +1,41 @@
+{
+  "id": 35,
+  "sendersFullName": "string",
+  "sendersPhoneNumber": "string",
+  "address": "Bishkek, Kyrgyzstan",
+  "recipientFullName": "string",
+  "recipientPhoneNumber": "string",
+  "timeOfDelivery": 1643433749013,
+  "comment": "string",
+  "zelle": "not zelle",
+  "distance": 0.0,
+  "orders": [
+    {
+      "id": 39,
+      "flowerName": "string",
+      "flowerId": 1,
+      "amount": 2,
+      "price": 200.0,
+      "discount": 0.0,
+      "flower": {
+        "id": 0,
+        "name": "string",
+        "description": "string",
+        "price": 0,
+        "rating": 0,
+        "available": true,
+        "block": true,
+        "image": [
+          "string"
+        ],
+        "category": "InTheBox",
+        "discount": 0
+      }
+    }
+  ],
+  "createdDate": 1645351017631,
+  "price": 200.0,
+  "paymentMethod": "OTHER",
+  "done": false,
+  "payed": false
+}

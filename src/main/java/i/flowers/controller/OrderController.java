@@ -79,7 +79,7 @@ public class OrderController {
     @GetMapping("/public/orders/payment/paypal/{id}")
     public ResponseEntity<String> paypalSimple(@PathVariable Long id){
         paymentService.payForPaypalSimple(id);
-        return new ResponseEntity<>(infoRepository.getById(1l).getAddress(),HttpStatus.OK);
+        return new ResponseEntity<>(infoRepository.getById(1l).getPaypal(),HttpStatus.OK);
     }
 
 
